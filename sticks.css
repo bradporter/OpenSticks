@@ -1,0 +1,1198 @@
+/* Classic Scripture Styles */
+/* - - - - - - - - - - - - - - - - - - - - - - - - - - - */
+/* 2015-11-09 */
+/* - - - - - - - - - - - - - - - - - - - - - - - - - - - */
+/* Body Styles */
+/* - - - - - - - - - - - - - - - - - - - - - - - - - - - */
+body{
+        font-size:0.8em; /*1em;*/
+        font-family:"Times-Roman-Bold"; /*"Palatino-Roman";*/
+        line-height:1.1em; /*1.33em;*/
+        text-align:left;
+        /*.hyphenate { */
+        overflow-wrap: break-word;
+        word-wrap: break-word;
+        -webkit-hyphens: auto;
+        -ms-hyphens: auto;
+        -moz-hyphens: auto;
+        hyphens: auto; /*options:  manual, auto or none */
+        /*} */
+}
+/* - - - - - - - - - - - - - - - - - - - - - - - - - - - */
+/* Titling Class Styles */
+/* - - - - - - - - - - - - - - - - - - - - - - - - - - - */
+.heading{
+        padding-bottom:1em;
+        /*width:5cm;*/
+        width: 90%; /*heading is inside pagecol */
+        position:relative;
+        padding:0 0 1em 0;
+        overflow:hidden;
+        font-family:"STHeitiSC-Light";
+        font-style:italic;
+}
+/* - - - - - - - - - - - - - - - - - - - - - - - - - - - */
+/* heading Variations */
+[uri='/scriptures/ot/ps/119'] .heading,
+[uri = '/scriptures/pgp/a-of-f/1'] .heading{
+        padding-bottom:0;
+}
+/* - - - - - - - - - - - - - - - - - - - - - - - - - - - */
+/* JH NOTE: Added selectors to make all 1st headings on pages the same size. */
+/* JH NOTE: Might need to also add selectors for Bible Maps and Photographs, and Church History Maps and Photographs. Can't access the HTML right now. */
+.titleNumber,
+[uri $= '/introduction.head'] > h1,
+[uri $= '/toc.head'] > h1,
+[uri $= '/scriptures/bible/quad/abbreviations.head'] > h1,
+[uri $= '/bofm/three.head'] > h1,
+[uri $= '/bofm/eight.head'] > h1,
+[uri $= '/bofm/js.head'] > h1,
+[uri $= '/bofm/explanation.head'] > h1,
+[uri $= '/bofm/illustrations.head'] > h1,
+[uri $= '/bofm/pronunciation.head'] > h1,
+[uri $= '/bofm/reference.head'] > h1,
+[uri $= '/bofm/illustrations.head'] > h1,
+[uri $= '/dc-testament/chron-order.head'] > h1,
+.figure[uri ^= '/scriptures/pgp/abr/fac'] > h1,
+[uri ^= '/scriptures/tg/'] > .topic > h2,
+[uri $= '/scriptures/tg/intro'] h1,
+[uri $= '/scriptures/bd/intro'] h1,
+[uri ^= '/scriptures/bd/'] h2,
+[uri = '/scriptures/bible-chron/tables'] h1,
+[uri = '/scriptures/harmony/tables'] h1,
+[uri $= '/scriptures/jst/intro'] h1,
+[uri ^= '/scriptures/jst/'] h2,
+[uri $= '/scriptures/triple-index/intro'] h1,
+[uri ^= '/scriptures/triple-index/'] h2,
+[uri $= '/scriptures/gs/how-to.head'] > h1,
+[uri ^= '/scriptures/gs/'] > h1,
+[uri ^= '/scriptures/gs/'] > h2{
+        font-size:1.1em;
+        text-transform:uppercase;
+        letter-spacing:.1em;
+        text-align:center;
+        padding-bottom:.5em;
+        padding-right:1.5em;
+        padding-left:1.5em;
+        padding-top:0;
+        font-family:"Palatino-Roman";
+}
+[uri ^= '/scriptures/tg/'] > .topic > h2 > .strong,
+[uri ^= '/scriptures/jst/'] > .bodyBlock > .topic > h2 > .strong,
+[uri ^= '/scriptures/triple-index/'] h2 .strong,
+[uri ^= '/scriptures/bd/'] h2 .strong,
+[uri ^= '/scriptures/gs/'] h2 .strong{
+        font-family:"Palatino-Roman";
+        text-transform:uppercase;
+        letter-spacing:.1em;
+}
+[uri ^= '/scriptures/jst/'] > .bodyBlock > .topic > h2,
+[uri ^= '/scriptures/triple-index/'] h2 .emphasis{
+        text-transform:none;
+        font-family:"Palatino-Italic";
+        letter-spacing:0;
+}
+[uri ^= '/scriptures/jst/'] > .bodyBlock > .topic > h2{
+        padding-top:1em;
+}
+[uri ^= '/scriptures/jst/'] > .bodyBlock > .topic:first-of-type > h2{
+        padding-top:0;
+}
+/* - - - - - - - - - - - - - - - - - - - - - - - - - - - */
+/* titleNumber Variations */
+[uri $= '/gs/how-to.f1'] > .topic > h2{
+        margin-top:1.25em;
+        padding-bottom:.5em;
+}
+/* SW NOTE: Becasue of the pageBreak class that might happen between elements we will need to include selector to account for this when using the "+" selector. */
+h1 + .titleNumber,
+h1 + .pageBreak + .titleNumber,
+h1 + .studySummary,
+h1 + .pageBreak + .studySummary{
+        padding-top:.85em;
+}
+.subtitle + .titleNumber,
+.subtitle + .pageBreak + .titleNumber,
+[uri $= '/ot/lam/1.head'] .titleNumber,
+[uri $= '/ot/eccl/1.head'] .titleNumber,
+[uri $= '/nt/rev/1.head'] .titleNumber{
+        padding-top:1.4em;
+}
+/* - - - - - - - - - - - - - - - - - - - - - - - - - - - */
+h1{
+        /*font-family:"Palatino-Roman";*/
+        text-transform:uppercase;
+        letter-spacing:.1em;
+        font-size:1em;
+        text-align:center;
+        line-height:1.25em;
+        padding-right:1.5em;
+        padding-left:1.5em;
+}
+h2,
+h3,
+[uri $= '/bofm/pronunciation'] .figure h1,      /* JH NOTE: Was h3, changed to h1. There are no h3's in "Pronunciation," but h1 in figure needs to be styled this way.  */
+[uri $= '/gs/abbreviations'] h3,
+.figure[uri ^= '/scriptures/bible/quad/abbreviations'] h1,
+.figure[uri ^= '/scriptures/pgp/abr/fac'] > .figure h1{
+        text-transform:uppercase;
+        letter-spacing:.1em;
+        font-size:.95em;
+        text-align:center;
+        line-height:1.15em;
+        padding-right:1.5em;
+        padding-left:1.5em;
+        padding-top:1.5em;
+        padding-bottom:.88em;
+}
+/* JH NOTE: Adding styles for maps/photos pages. May need to be adjusted if the titles are ever dropped on these pages. */
+[uri ^= '/scriptures/bible-maps/map'] h1,
+[uri ^= '/scriptures/bible-maps/index'] h1,
+[uri ^= '/scriptures/bible-maps/overview'] h1:last-of-type,
+[uri ^= '/scriptures/bible-photos/photo'] h1,
+[uri ^= '/scriptures/bible-photos/overview'] h1:last-of-type,
+[uri ^= '/scriptures/history-maps/map'] h1,
+[uri ^= '/scriptures/history-maps/index'] h1,
+[uri ^= '/scriptures/history-maps/overview'] h1:last-of-type,
+[uri ^= '/scriptures/history-photos/photo'] h1,
+[uri ^= '/scriptures/history-photos/overview'] h1:last-of-type{
+        font-size:.95em;
+}
+[uri ^= '/scriptures/bible-maps/map'] h1:last-of-type,
+[uri ^= '/scriptures/bible-maps/index'] h1:last-of-type,
+[uri ^= '/scriptures/bible-maps/overview'] h1,
+[uri ^= '/scriptures/bible-photos/photo'] h1:last-of-type,
+[uri ^= '/scriptures/bible-photos/overview'] h1,
+[uri ^= '/scriptures/history-maps/map'] h1:last-of-type,
+[uri ^= '/scriptures/history-maps/index'] h1:last-of-type,
+[uri ^= '/scriptures/history-maps/overview'] h1,
+[uri ^= '/scriptures/history-photos/photo'] h1:last-of-type,
+[uri ^= '/scriptures/history-photos/overview'] h1{
+        font-size:1.1em;
+}
+.figure[uri ^= '/scriptures/bible/quad/abbreviations']:first-of-type h1{
+        padding-top:0;
+}
+/* - - - - - - - - - - - - - - - - - - - - - - - - - - - */
+/* h1 Variations */
+.figure h1{
+        font-size:.88em;
+        padding-top:1.5em;
+}
+h2 + .figure > h1{
+        padding-top:0;
+}
+/* - - - - - - - - - - - - - - - - - - - - - - - - - - - */
+/* h2 Variations */
+.topic > .topic h2{
+        margin-top:1.25em;
+}
+[uri $= '/history-maps/chronology'] .topic:first-of-type h2{
+        padding-top:0;
+}
+[uri='/scriptures/ot/ps/119'] .topic:first-of-type h2{
+        padding-top:0;
+}
+/* - - - - - - - - - - - - - - - - - - - - - - - - - - - */
+.subtitle,
+[uri $= '/nt/title-page'] .bodyBlock > .para{
+        font-size:.88em;
+        letter-spacing:.1em;
+        text-align:center;
+        text-transform:uppercase;
+        line-height:1.33em;
+}
+/* - - - - - - - - - - - - - - - - - - - - - - - - - - - */
+/* subtitle Variations */
+.titleNumber + .subtitle,
+.titleNumber + .pageBreak + .subtitle{
+        text-transform:none;
+        letter-spacing:0;
+        font-size:1em;
+        /* JH NOTE: Fixing spacing issue with date underneath chapter number in PoGP. */
+        margin-top:-.65em;
+        padding-bottom:.5em;
+}
+/* - - - - - - - - - - - - - - - - - - - - - - - - - - - */
+/* Title Page Styles */
+/* - - - - - - - - - - - - - - - - - - - - - - - - - - - */
+[uri $= '/ot/title-page'] h1,
+[uri $= '/nt/title-page'] .bodyBlock > .para,
+[uri $= '/pgp/title-page'] .subtitle,
+[uri $= '/dc-testament/title-page'] .subtitle{
+        padding-bottom:5em;
+        text-indent:0;
+}
+[uri $= '/ot/title-page'] .topic .para,
+[uri $= '/nt/title-page'] .topic .para,
+[uri $= '/pgp/title-page'] .topic .para,
+[uri $= '/dc-testament/title-page'] .topic .para{
+        text-align:center;
+        text-indent:0;
+        font-size:.75em;
+        line-height:1.33em;
+}
+[uri $= '/nt/title-page'] .heading{
+        padding-bottom:0;
+}
+[uri $= '/bofm-title.head'] .subtitle{
+        line-height:1.75em;
+}
+/* - - - - - - - - - - - - - - - - - - - - - - - - - - - */
+/* Translation Information on BofM Title Page */
+/* - - - - - - - - - - - - - - - - - - - - - - - - - - - */
+[uri $= '/bofm/bofm-title'] p:nth-of-type(3){
+        padding-top:1em;
+}
+[uri $= '/bofm/bofm-title'] p:nth-of-type(n+3){
+        text-align:center;
+        text-indent:0;
+}
+[uri $= '/bofm/bofm-title'] p:nth-of-type(n+3) br{
+        display:inline;
+}
+/* - - - - - - - - - - - - - - - - - - - - - - - - - - - */
+[uri $= '/dc-testament/title-page.head'] .subtitle br:nth-of-type(2),
+[uri $= '/pgp/title-page.head'] .subtitle br:nth-of-type(3){
+        display:block;
+        content:'';
+        padding-bottom:1em;
+}
+[uri $= '/pgp/title-page'] .subtitle,
+[uri $= '/dc-testament/title-page.head'] .subtitle,
+[uri $= '/nt/title-page'] .bodyBlock > .para{
+        line-height:1.75em;
+        padding-top:2em;
+}
+/* - - - - - - - - - - - - - - - - - - - - - - - - - - - */
+/* Copyright Info on BofM Title Page */
+/* - - - - - - - - - - - - - - - - - - - - - - - - - - - */
+/* SW Note: This content is not tagged as publish info. ***This will need to be fixed when the content is corrected */
+/* JH NOTE: These styles need to be checked when this page is added back in. */
+[uri='/scriptures/bofm/title-page'] .topic > .para{
+        font-size:.8em;
+        line-height:1.33em;
+        padding-bottom:1em;
+        text-align:center;
+        text-indent:0;
+        padding-bottom:0;
+}
+[uri='/scriptures/bofm/title-page.t1'] > .para br{
+        display:inline;
+}
+[uri='/scriptures/bofm/title-page'] .topic:first-of-type{
+        margin-top:5em;
+}
+[uri='/scriptures/bofm/title-page'] .topic:last-of-type{
+        margin-top:2.5em;
+}
+/* - - - - - - - - - - - - - - - - - - - - - - - - - - - */
+.studySummary{
+        font-family:"Palatino-Italic";
+        -webkit-hyphens:auto;
+        -webkit-hyphenate-limit-before:4;
+        -webkit-hyphenate-limit-after:3;
+}
+/* - - - - - - - - - - - - - - - - - - - - - - - - - - - */
+/* studySummary Variations */
+[uri $= '/pgp/js-h/1'] .studySummary{
+        padding-top:.5em;
+        padding-bottom:1.25em;
+}
+[uri $= '/pgp/js-h/1.t1'] .studySummary{
+        padding-top:0;
+}
+.studyIntro + .studySummary,
+.studyIntro + .pageBreak + .studySummary{
+        margin-top:-.5em;
+}
+[uri='/scriptures/ot/ps/119'] .studySummary{
+        padding-bottom:1em;
+}
+/* - - - - - - - - - - - - - - - - - - - - - - - - - - - */
+.studyIntro{
+        font-family:"Palatino-Italic";
+        padding-top:.90em;
+        padding-bottom:1.25em;
+        -webkit-hyphens:auto;
+        -webkit-hyphenate-limit-before:4;
+        -webkit-hyphenate-limit-after:3;
+}
+/* - - - - - - - - - - - - - - - - - - - - - - - - - - - */
+/* studyIntro Variations */
+[uri $= '/pgp/a-of-f.head'] .studyIntro{
+        padding-top:1.5em;
+}
+.subtitle + .studyIntro,
+.subtitle + .pageBreak + .studyIntro{
+        padding-top:1.5em;
+}
+[uri *= '/dc-testament/'] .studyIntro{
+        padding-top:0;
+}
+/* - - - - - - - - - - - - - - - - - - - - - - - - - - - */
+.intro{
+        padding-top:.90em;
+        padding-bottom:1.25em;
+        -webkit-hyphens:auto;
+        -webkit-hyphenate-limit-before:4;
+        -webkit-hyphenate-limit-after:3;
+}
+/* - - - - - - - - - - - - - - - - - - - - - - - - - - - */
+/* intro Variations */
+.subtitle + .intro,
+.subtitle + .pageBreak + .intro{
+        padding-top:1.5em;
+}
+[uri $= '/bofm/3-ne/1.head'] .intro,
+[uri $= '/bofm/4-ne/1.head'] .intro,
+[uri $= '/bofm/alma/1.head'] .intro,
+[uri $= '/bofm/jacob/1.head'] .intro{
+        padding-top:1.5em;
+}
+.heading > .intro:first-child{
+        padding-top:0;
+        padding-bottom:0;
+}
+.studySummary + .intro{
+        padding-bottom:0;
+}
+/* - - - - - - - - - - - - - - - - - - - - - - - - - - - */
+/* Titling Span Styles */
+h1 > .dominant{
+        font-size:1.75em;
+        line-height:1em;
+        display:block;
+        padding-top:.15em;
+        -webkit-hyphens:auto;
+        -webkit-hyphenate-limit-before:3;
+        -webkit-hyphenate-limit-after:2;
+}
+.heading > h1:only-of-type > .dominant,
+.heading > h1:nth-of-type(2) > .dominant{
+        padding-bottom:.35em;
+}
+h1 > .subordinate{
+        font-size:.88em;
+        display:block;
+        padding-top:.15em;
+}
+[uri $= '/pgp/a-of-f/1'] h1 > .subordinate{
+        padding-top:0;
+}
+.subtitle > .dominant{
+        font-size:1.5em;
+        display:block;
+}
+.studyIntro em {
+        font-family:"Palatino-Roman";
+}
+[uri='/scriptures/ot/ps/119'] h2 .language{
+        font-size:1.25em;
+}
+/* - - - - - - - - - - - - - - - - - - - - - - - - - - - */
+/* Body Block Class Styles */
+/* - - - - - - - - - - - - - - - - - - - - - - - - - - - */
+.verse{
+        /*padding-bottom:.65em;*/
+        -webkit-hyphens:auto;
+        -webkit-hyphenate-limit-before:4;
+        -webkit-hyphenate-limit-after:3;
+        text-indent:.75em
+}
+p {
+    margin-top: 0em;
+    margin-bottom: 0em; /*default is 1em.  0 removes paragraph spacing. */
+}
+.para,
+.preamble{
+        text-indent:1.5em;
+        -webkit-hyphens:auto;
+        -webkit-hyphenate-limit-before:4;
+        -webkit-hyphenate-limit-after:3;
+}
+.wideEllipse{
+        font-size:1.25em;
+        text-align:center;
+        letter-spacing:.35em;
+        padding-bottom:.5em;
+}
+.answer{
+        text-indent:1.25em;
+        -webkit-hyphens:auto;
+        -webkit-hyphenate-limit-before:4;
+        -webkit-hyphenate-limit-after:3;
+}
+.question{
+        -webkit-hyphens:auto;
+        -webkit-hyphenate-limit-before:4;
+        -webkit-hyphenate-limit-after:3;
+}
+.line{
+        padding-left:2.4em;
+        text-indent:-.75em;
+        -webkit-hyphens:auto;
+        -webkit-hyphenate-limit-before:4;
+        -webkit-hyphenate-limit-after:3;
+}
+/* - - - - - - - - - - - - - - - - - - - - - - - - - - - */
+/* Body Block Span Styles */
+.verseNumber{
+        font-size:0.8em; /*.9em;*/
+        font-family:"Palatino-Bold";
+        padding-right:.33em;
+}
+[uri $= '/dc-testament/dc/77'] div.verse .verseNumber{
+        float:left;
+        width:1.25em;
+}
+[uri $= '/dc-testament/dc/84'] div.verse .verseNumber{
+        float:left;
+}
+.colright,
+.colmid,
+.colleft,
+.pages{
+     float:left;
+     width:100%;       /* width of page */
+     position:relative;
+}
+#doublepg {
+   position:relative;
+   width:1020px
+}
+#leftpg {
+  position:absolute;
+  left: 0;
+  top: 0;
+  width: 500px
+}
+#rtpg {
+  position:absolute;
+  right: 0;
+  top: 0;
+  width: 500px;
+}
+#fullwidthleft {
+  position:absolute;
+  right: 0;
+  top: 0;
+  width: 480px
+}
+#fullwidthrt {
+  position:absolute;
+  right: 0;
+  top: 0;
+  width: 480px
+}
+#leftpg-left, #rtpg-left{
+  position:absolute;
+  left: 0;
+  top: 0; 
+  width: 240px
+}
+#leftpg-rt, #rtpg-rt{
+  position:absolute;
+  right: 0;
+  top: 0;
+  width: 240px
+}
+.studyNoteMarker{
+        font-family:"Palatino-Italic";
+        font-size:.75em;
+        vertical-align:super;
+        line-height:0em;
+        font-variant:normal;
+        text-transform:none;
+}
+/* SW NOTE: I have commented this extra spacing out for a season to see how it settles with the users to have the studyNoteMarker closer to the word they are marking */
+.studyNoteMarker:after{
+        content:'\00A0';
+        font-size:.25em;
+}
+.smallCaps,
+.deitySmallCaps{
+        font-variant:small-caps;
+}
+.deityAllCaps{
+        text-transform:uppercase;
+}
+.allCaps {
+        text-transform:uppercase;
+}
+/* Triple-index has need to specify all caps in its titles through a span. */
+[uri ^= '/scriptures/triple-index/'] h2 .allCaps{
+        letter-spacing:.1em;
+}
+.keyWord,
+.clarityWord{
+        font-family:"Palatino-Italic";
+}
+.studyIntro .emphasis{
+        font-family:"Palatino-Roman";
+}
+/* - - - - - - - - - - - - - - - - - - - - - - - - - - - */
+/* List Styles */
+/* - - - - - - - - - - - - - - - - - - - - - - - - - - - */
+.number,
+.noMarker{
+        padding-bottom:.65em;
+}
+.number > li > .para,
+.noMarker > li > .para{
+        padding-top:.65em;
+}
+/* - - - - - - - - - - - - - - - - - - - - - - - - - - - */
+/* Index Reference Styles */
+/* - - - - - - - - - - - - - - - - - - - - - - - - - - - */
+.para + .figure .index{
+        padding-top:.65em;
+}
+.index li > .para{
+        padding-left:1.5em;
+        padding-bottom:.65em;
+        text-indent:-1.5em;
+}
+.reference{
+        font-family:"Palatino-Italic";
+        padding-left:1.5em;
+        text-indent:-1.5em;
+        -webkit-hyphens:auto;
+        -webkit-hyphenate-limit-before:4;
+        -webkit-hyphenate-limit-after:3;
+}
+.topic > .reference{
+        padding-bottom:1em;
+}
+/*.padWord,
+.padDigit{
+        display:none;
+}*/
+/* - - - - - - - - - - - - - - - - - - - - - - - - - - - */
+/* Closing Block Styles */
+/* - - - - - - - - - - - - - - - - - - - - - - - - - - - */
+/* JH NOTE: Adding spacing to deal with closingBlocks for now. Will need to check other languages and see how to best handle these. Right now there are no closingBlocks in English scriptures. */
+.closingBlock{
+        padding-top:.5em;
+        padding-bottom:.5em;
+}
+[uri ^= "/scriptures/dc-testament/od/"] .closingBlock,
+[uri ^= "/scriptures/pgp/a-of-f/1"] .closingBlock,
+[uri ^= "/scriptures/dc-testament/od/"] div.para,
+[uri ^= "/scriptures/pgp/a-of-f/1"] div.para,
+[uri ^= "/scriptures/bofm/introduction"] .closingBlock{
+        padding-left:50%;
+}
+[uri ^= "/scriptures/dc-testament/od/"] .closing{
+        font-size:inherit;
+        line-height:inherit;
+}
+[uri $= '/dc-testament/introduction'] .closingBlock{
+        -webkit-column-count:2;
+        -webkit-column-gap:1em;
+        padding-left:0;
+}
+.signature{
+        font-variant:small-caps;
+        padding-bottom:0;
+        text-indent:0;
+}
+.office,
+.date,
+.closing{
+        text-indent:0;
+}
+.closing{
+        font-size:.85em;
+        line-height:1.15em;
+}
+[uri ^= "/scriptures/ot/mal/4"] .closing,
+[uri ^= "/scriptures/nt/rev/22"] .closing,
+[uri ^= "/scriptures/bofm/moro/10"] .closing{
+        text-align:center;
+        text-transform:uppercase;
+        font-size:inherit;
+        line-height:inherit;
+}
+/* - - - - - - - - - - - - - - - - - - - - - - - - - - - */
+/* Table Styles */
+/* - - - - - - - - - - - - - - - - - - - - - - - - - - - */
+td{
+        vertical-align:top;
+        padding-right:1em;
+        padding-bottom:.62em;
+}
+th{
+        text-align:left;
+        vertical-align:top;
+        padding-right:1em;
+        padding-bottom:.62em;
+}
+th .para{
+                text-indent:0;
+}
+td .para{
+                text-indent:0;
+}
+/* - - - - - - - - - - - - - - - - - - - - - - - - - - - */
+/* Harmony Table Styles */
+[uri ^= '/scriptures/harmony/tables'] th{
+        padding-bottom:0;
+        border-bottom:1px solid;
+}
+[uri ^= '/scriptures/harmony/tables'] td{
+        border-bottom:1px solid;
+        font-size:.88em;
+        padding:.5em .62em .2em .62em;
+        line-height:1.33em;
+}
+[uri ^= '/scriptures/harmony/tables'] tr:nth-child(2) td{
+        font-family:"Palatino-Bold";
+}
+[uri ^= '/scriptures/harmony/tables'] table{
+        margin-bottom:3em;
+}
+/* - - - - - - - - - - - - - - - - - - - - - - - - - - - */
+/* Chronology Table Styles */
+[uri ^= '/scriptures/bible-chron/tables'] .figure h1{
+        font-family:"Palatino-Bold";
+        border-top:4px double;
+        padding-top:.5em;
+}
+[uri ^= '/scriptures/bible-chron/tables'] table{
+        border-top:4px double;
+        margin-bottom:1.5em;
+}
+[uri ^= '/scriptures/bible-chron/tables'] td,
+[uri ^= '/scriptures/bible-chron/tables'] th{
+        font-size:.88em;
+        padding:.5em .62em 0 .62em;
+        line-height:1.33em;
+        border-right:1px solid;
+}
+[uri ^= '/scriptures/bible-chron/tables'] tr td:last-child,
+[uri ^= '/scriptures/bible-chron/tables'] tr th:last-child{
+        border-right:none;
+}
+[uri ^= '/scriptures/bible-chron/tables'] th{
+        border-bottom:1px solid;
+}
+[uri ^= '/scriptures/bible-chron/tables'] .topic > .para{
+        padding: 1em 0 1em 0;
+}
+[uri ^= '/scriptures/bible-chron/tables'] h1 + .topic table {
+        border-top:1px solid;
+}
+[uri = '/scriptures/bible-chron/tables.t1'] table,
+[uri = '/scriptures/bible-chron/tables.t2'] table{
+        border-bottom:4px double;
+        margin-bottom:0;
+}
+/* JH NOTE: Using "hash" attribute to remove content from cells in this table that only contain ellipses. I'm using an image of a dot as a repeated background to fill the space in these cells to match print version. */
+/* JH NOTE: This image will need to have a transparent background. A separate image will be needed for night mode. Also consider using an SVG. */
+[uri ^= '/scriptures/bible-chron/tables'] [hash ^= 'oziAX']{
+        font-size:0;
+        background-image:url('ellipsis.svg');
+        background-repeat:repeat-x;
+        background-size:contain;
+}
+body[scheme = 'night'] [uri ^= '/scriptures/bible-chron/tables'] [hash ^= 'oziAX']{
+        background-image:url('ellipsis-night.svg');
+}
+/* - - - - - - - - - - - - - - - - - - - - - - - - - - - */
+/* TOC Styles */
+[uri $= '/bofm/toc.1'] table,
+[uri $= '/pgp/toc.1'] table{
+        width:80%;
+        margin-left:auto;
+        margin-right:auto;
+}
+[uri $= '/bofm/toc.1'] th,
+[uri $= '/pgp/toc.1'] th{
+        font-family:"Palatino-Italic";
+}
+[uri $= '/bofm/toc.1'] td:nth-of-type(2),
+[uri $= '/bofm/toc.1'] th:nth-of-type(2),
+[uri $= '/pgp/toc.1'] td:nth-of-type(2),
+[uri $= '/pgp/toc.1'] th:nth-of-type(2){
+    text-align: right;
+    padding-right: 0;
+}
+/* - - - - - - - - - - - - - - - - - - - - - - - - - - - */
+/* BofM Pronunciation and GS Abbreviations Styles */
+[uri $= '/bofm/pronunciation'] table{
+        table-layout:fixed;
+        width:75%;
+        margin-left:auto;
+        margin-right:auto;
+        }
+[uri $= '/gs/abbreviations'] table{
+        table-layout:fixed;
+        width:55%;
+        margin-left:auto;
+        margin-right:auto;
+        }
+[uri $= '/bofm/pronunciation'] .figure,
+[uri $= '/gs/abbreviations'] .figure{
+        margin-top:2em;
+}
+[uri $= '/bofm/pronunciation'] .figure:first-of-type{
+        margin-top:0;
+}
+[uri $= '/gs/abbreviations'] .figure:first-of-type{
+        margin-top:1em;
+}
+[uri $= '/bofm/pronunciation'] td:nth-of-type(1){
+    width:42%;
+}
+[uri $= '/bofm/pronunciation'] td:nth-of-type(2){
+        width:58%;
+        padding-right:0;
+}
+[uri $= '/gs/abbreviations'] td:nth-of-type(1){
+    width:75%;
+}
+[uri $= '/gs/abbreviations'] td:nth-of-type(2){
+        width:25%;
+        padding-right:0;
+}
+/* SW NOTE: The next two styles are turning some things off on the above tables settings so the first table in the series can work better */
+[uri $= '/bofm/pronunciation.f1'] table{
+        table-layout:auto;
+        width:40%;
+        margin-left:auto;
+        margin-right:auto;
+}
+[uri $= '/bofm/pronunciation.f1'] td:nth-of-type(1),
+[uri $= '/bofm/pronunciation.f1'] td:nth-of-type(2){
+        width:0;
+}
+/* - - - - - - - - - - - - - - - - - - - - - - - - - - - */
+/* Chronological Table Styles */
+[uri $= '/dc-testament/chron-order'] .para{
+        text-indent:0;
+}
+[uri $= '/dc-testament/chron-order.f1'] td:nth-last-of-type(1){
+        padding-right:0;
+}
+/* - - - - - - - - - - - - - - - - - - - - - - - - - - - */
+/* Facsimilie Table Styles */
+/* JH NOTE: In some languages, the facsimilie explanations are marked up as tables. The text in the first column needs to be set so that it won't wrap. */
+html:not([lang = "zul"]) [uri *= '/scriptures/pgp/abr/fac'] table.definition td:first-of-type{
+        white-space: nowrap;
+}
+/* - - - - - - - - - - - - - - - - - - - - - - - - - - - */
+/* Image Styles */
+/* - - - - - - - - - - - - - - - - - - - - - - - - - - - */
+/* JH NOTE: All images in scriptures are now using the new multi-source format, so they need to always be presented at 100% width. */
+img{
+        display:block;
+        margin:0 auto;
+        width:100%;
+}
+/* SW NOTE: This image style sheet is just temporary to deal with these images for now. A better image strategy will have to be developed when we have more pictures as part of the content. The captions and things need to be worked over also when that time comes. */
+[uri $= '/bofm/illustrations'] img{
+        padding:0 0 .8em 0;
+}
+[uri $= '/bofm/illustrations'] .figure{
+        padding-bottom:2em;
+}
+
+[uri $= '/bofm/illustrations'] .bodyBlock > .figure:last-child,
+[uri $= '/bofm/illustrations'] li:last-child .figure{
+        padding-bottom:0;
+}
+/* JH NOTE: List numbers aren't needed on these images. */
+[uri $= '/bofm/illustrations'] ol{
+        list-style-type:none;
+        padding-left:0;
+        padding-bottom:0;
+}
+[uri $= '/bofm/illustrations'] .para{
+        text-indent:0;
+}
+/* - - - - - - - - - - - - - - - - - - - - - - - - - - - */
+/* Language Specific Styles */
+/* - - - - - - - - - - - - - - - - - - - - - - - - - - - */
+/* Spanish Poetry */
+/* - - - - - - - - - - - - - - - - - - - - - - - - - - - */
+[lang = "spa"] [uri *= "/scriptures/ot/"] .verseNumber,
+[lang = "spa"] [uri *= "/scriptures/nt/"] .verseNumber{
+        float:left;
+}
+[lang = "spa"] .line{
+        padding-left:1.9em;
+}
+[lang = "spa"] [uri $= "ot/ps/119.t13"] .line,
+[lang = "spa"] [uri $= "ot/ps/119.t14"] .line,
+[lang = "spa"] [uri $= "ot/ps/119.t15"] .line,
+[lang = "spa"] [uri $= "ot/ps/119.t16"] .line,
+[lang = "spa"] [uri $= "ot/ps/119.t17"] .line,
+[lang = "spa"] [uri $= "ot/ps/119.t18"] .line,
+[lang = "spa"] [uri $= "ot/ps/119.t19"] .line,
+[lang = "spa"] [uri $= "ot/ps/119.t20"] .line,
+[lang = "spa"] [uri $= "ot/ps/119.t21"] .line,
+[lang = "spa"] [uri $= "ot/ps/119.t22"] .line,
+[lang = "spa"] [uri $= '/dc-testament/dc/84'] .line{
+        padding-left:2.4em;
+}
+[lang = "spa"] .selah{
+        padding-left:.8em;
+}
+/* - - - - - - - - - - - - - - - - - - - - - - - - - - - */
+/* Simplified Chinese */
+/* - - - - - - - - - - - - - - - - - - - - - - - - - - - */
+[lang="zhs"] body,
+[lang="zhs"] .titleNumber,
+[lang="zhs"] [uri $= '/introduction.head'] > h1,
+[lang="zhs"] [uri $= '/toc.head'] > h1,
+[lang="zhs"] [uri $= '/scriptures/bible/quad/abbreviations.head'] > h1,
+[lang="zhs"] [uri $= '/bofm/three.head'] > h1,
+[lang="zhs"] [uri $= '/bofm/eight.head'] > h1,
+[lang="zhs"] [uri $= '/bofm/js.head'] > h1,
+[lang="zhs"] [uri $= '/bofm/explanation.head'] > h1,
+[lang="zhs"] [uri $= '/bofm/illustrations.head'] > h1,
+[lang="zhs"] [uri $= '/bofm/pronunciation.head'] > h1,
+[lang="zhs"] [uri $= '/bofm/reference.head'] > h1,
+[lang="zhs"] [uri $= '/bofm/illustrations.head'] > h1,
+[lang="zhs"] [uri $= '/dc-testament/chron-order.head'] > h1,
+[lang="zhs"] .figure[uri ^= '/scriptures/pgp/abr/fac'] > h1,
+[lang="zhs"] [uri ^= '/scriptures/tg/'] > .topic > h2,
+[lang="zhs"] [uri $= '/scriptures/tg/intro'] h1,
+[lang="zhs"] [uri $= '/scriptures/bd/intro'] h1,
+[lang="zhs"] [uri ^= '/scriptures/bd/'] h2,
+[lang="zhs"] [uri = '/scriptures/bible-chron/tables'] h1,
+[lang="zhs"] [uri = '/scriptures/harmony/tables'] h1,
+[lang="zhs"] [uri $= '/scriptures/jst/intro'] h1,
+[lang="zhs"] [uri ^= '/scriptures/jst/'] h2,
+[lang="zhs"] [uri $= '/scriptures/triple-index/intro'] h1,
+[lang="zhs"] [uri ^= '/scriptures/triple-index/'] h2,
+[lang="zhs"] [uri $= '/scriptures/gs/how-to.head'] > h1,
+[lang="zhs"] [uri ^= '/scriptures/gs/'] > h1,
+[lang="zhs"] [uri ^= '/scriptures/gs/'] > h2,
+[lang="zhs"] [uri ^= '/scriptures/tg/'] > .topic > h2 > .strong,
+[lang="zhs"] [uri ^= '/scriptures/jst/'] > .bodyBlock > .topic > h2 > .strong,
+[lang="zhs"] [uri ^= '/scriptures/triple-index/'] h2 .strong,
+[lang="zhs"] [uri ^= '/scriptures/bd/'] h2 .strong,
+[lang="zhs"] [uri ^= '/scriptures/gs/'] h2 .strong,
+[lang="zhs"] .studyIntro em,
+[lang="zhs"] .studyIntro .emphasis,
+[lang="zhs"] .studyNoteMarker{
+        font-family:"STHeitiSC-Light";
+        font-style:normal;
+}
+[lang="zhs"] .emphasis,
+[lang="zhs"] [uri ^= '/scriptures/jst/'] > .bodyBlock > .topic > h2,
+[lang="zhs"] [uri ^= '/scriptures/triple-index/'] h2 .emphasis,
+[lang="zhs"] .studySummary,
+[lang="zhs"] .studyIntro,
+[lang="zhs"] .keyWord,
+[lang="zhs"] .clarityWord,
+[lang="zhs"] .reference,
+[lang="zhs"] [uri $= '/bofm/toc.1'] th,
+[lang="zhs"] [uri $= '/pgp/toc.1'] th{
+        font-family:"STHeitiSC-Light";
+        font-style:italic;
+}
+[lang="zhs"] .strong,
+[lang="zhs"] .verseNumber,
+[lang="zhs"] [uri ^= '/scriptures/harmony/tables'] tr:nth-child(2) td,
+[lang="zhs"] [uri ^= '/scriptures/bible-chron/tables'] .figure h1{
+        font-family:"STHeitiSC-Medium";
+}
+/* - - - - - - - - - - - - - - - - - - - - - - - - - - - */
+/* Hindi */
+/* - - - - - - - - - - - - - - - - - - - - - - - - - - - */
+[lang="hin"] body,
+[lang="hin"] .titleNumber,
+[lang="hin"] [uri $= '/introduction.head'] > h1,
+[lang="hin"] [uri $= '/toc.head'] > h1,
+[lang="hin"] [uri $= '/scriptures/bible/quad/abbreviations.head'] > h1,
+[lang="hin"] [uri $= '/bofm/three.head'] > h1,
+[lang="hin"] [uri $= '/bofm/eight.head'] > h1,
+[lang="hin"] [uri $= '/bofm/js.head'] > h1,
+[lang="hin"] [uri $= '/bofm/explanation.head'] > h1,
+[lang="hin"] [uri $= '/bofm/illustrations.head'] > h1,
+[lang="hin"] [uri $= '/bofm/pronunciation.head'] > h1,
+[lang="hin"] [uri $= '/bofm/reference.head'] > h1,
+[lang="hin"] [uri $= '/bofm/illustrations.head'] > h1,
+[lang="hin"] [uri $= '/dc-testament/chron-order.head'] > h1,
+[lang="hin"] .figure[uri ^= '/scriptures/pgp/abr/fac'] > h1,
+[lang="hin"] [uri ^= '/scriptures/tg/'] > .topic > h2,
+[lang="hin"] [uri $= '/scriptures/tg/intro'] h1,
+[lang="hin"] [uri $= '/scriptures/bd/intro'] h1,
+[lang="hin"] [uri ^= '/scriptures/bd/'] h2,
+[lang="hin"] [uri = '/scriptures/bible-chron/tables'] h1,
+[lang="hin"] [uri = '/scriptures/harmony/tables'] h1,
+[lang="hin"] [uri $= '/scriptures/jst/intro'] h1,
+[lang="hin"] [uri ^= '/scriptures/jst/'] h2,
+[lang="hin"] [uri $= '/scriptures/triple-index/intro'] h1,
+[lang="hin"] [uri ^= '/scriptures/triple-index/'] h2,
+[lang="hin"] [uri $= '/scriptures/gs/how-to.head'] > h1,
+[lang="hin"] [uri ^= '/scriptures/gs/'] > h1,
+[lang="hin"] [uri ^= '/scriptures/gs/'] > h2,
+[lang="hin"] [uri ^= '/scriptures/tg/'] > .topic > h2 > .strong,
+[lang="hin"] [uri ^= '/scriptures/jst/'] > .bodyBlock > .topic > h2 > .strong,
+[lang="hin"] [uri ^= '/scriptures/triple-index/'] h2 .strong,
+[lang="hin"] [uri ^= '/scriptures/bd/'] h2 .strong,
+[lang="hin"] [uri ^= '/scriptures/gs/'] h2 .strong,
+[lang="hin"] .studyIntro em,
+[lang="hin"] .studyIntro .emphasis,
+[lang="hin"] .studyNoteMarker{
+        font-family:"DevanagariSangamMN";
+        font-style:normal;
+}
+[lang="hin"] .emphasis,
+[lang="hin"] [uri ^= '/scriptures/jst/'] > .bodyBlock > .topic > h2,
+[lang="hin"] [uri ^= '/scriptures/triple-index/'] h2 .emphasis,
+[lang="hin"] .studySummary,
+[lang="hin"] .studyIntro,
+[lang="hin"] .keyWord,
+[lang="hin"] .clarityWord,
+[lang="hin"] .reference,
+[lang="hin"] [uri $= '/bofm/toc.1'] th,
+[lang="hin"] [uri $= '/pgp/toc.1'] th{
+        font-family:"DevanagariSangamMN";
+        font-style:italic;
+}
+[lang="hin"] .strong,
+[lang="hin"] .verseNumber,
+[lang="hin"] [uri ^= '/scriptures/harmony/tables'] tr:nth-child(2) td,
+[lang="hin"] [uri ^= '/scriptures/bible-chron/tables'] .figure h1{
+        font-family:"DevanagariSangamMN-Bold";
+}
+/* - - - - - - - - - - - - - - - - - - - - - - - - - - - */
+/* Persian */
+/* - - - - - - - - - - - - - - - - - - - - - - - - - - - */
+[lang = "pes"] .verseNumber{
+        padding-right:0;
+        padding-left:.33em;
+}
+/* These languages have characters that must be connected together, so letter spacing can't be used. */
+/* These may need to be updated in the future if additional scriptures other than BofM are added in these languages. */
+[lang = "pes"] h1,
+[lang = "pes"] h2,
+[lang = "pes"] h3,
+[lang = "pes"] .subtitle,
+[lang = "pes"] .titleNumber,
+[lang = "hin"] h1,
+[lang = "hin"] h2,
+[lang = "hin"] h3,
+[lang = "hin"] .subtitle,
+[lang = "hin"] .titleNumber,
+[lang = "ara"] h1,
+[lang = "ara"] h2,
+[lang = "ara"] h3,
+[lang = "ara"] .subtitle,
+[lang = "ara"] .titleNumber{
+        letter-spacing:0;
+}
+/* - - - - - - - - - - - - - - - - - - - - - - - - - - - */
+/* Turkish */
+/* - - - - - - - - - - - - - - - - - - - - - - - - - - - */
+/* Text-transform is causing problems in Turkish, so it needs to be turned off. */
+[lang = "tur"] *{
+        text-transform:none !important;
+        font-variant:normal !important;
+}
+/* - - - - - - - - - - - - - - - - - - - - - - - - - - - */
+/* **The following is being copied to classicScripture from base. Once base is in sync with classicScripture, this needs to be removed.** */
+/* Setting Arabic content to read right to left. */
+[lang = "ara"] body,
+[lang = "pes"] body{
+        direction:rtl;
+        text-align:right;
+}
+[lang = "ara"] h1{
+        padding-left:2em;
+        padding-right:0;
+}
+[lang = "pes"] .number{
+        list-style-type:persian;
+}
+[lang = "pes"] ol{
+        padding-left:0;
+        padding-right:1.5em;
+}
+/* - - - - - - - - - - - - - - - - - - - - - - - - - - - */
+/* Media Specific Styles */
+/* - - - - - - - - - - - - - - - - - - - - - - - - - - - */
+/* - - - - - - - - - - - - - - - - - - - - - - - - - - - */
+/* Print Styles */
+/* - - - - - - - - - - - - - - - - - - - - - - - - - - - */
+@media print{
+        body{
+                color:black;
+                border-color:black;
+                background-color:transparent;
+                font-size:12pt !important;
+                width: 80% !important;
+                margin: 36pt auto 36pt auto !important;
+        }
+        a,
+        [ref]{
+                color:black;
+        }
+}
+/* NOTE: The basic media queries are contained in the style_screenPresentations.css. This area is for style sheet specific media queries. */
+/* - - - - - - - - - - - - - - - - - - - - - - - - - - - */
+/* iPhone 5" landscape */
+/* - - - - - - - - - - - - - - - - - - - - - - - - - - - */
+@media screen and (max-width:568px) {
+        h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  .subtitle{
+                padding-right:0;
+                padding-left:0;
+  }
+        [uri $= '/bofm/pronunciation'] table
+        [uri $= '/gs/abbreviations'] table{
+                table-layout:auto;
+                width:100%;
+        }
+          [uri ^= '/scriptures/harmony/tables'] td,
+  [uri ^= '/scriptures/harmony/tables'] th,
+        [uri ^= '/scriptures/bible-chron/tables'] td,
+        [uri ^= '/scriptures/bible-chron/tables'] th{
+                border-bottom:none;
+                border-right:none;
+}
+        [uri ^= '/scriptures/bible-chron/tables'] .topic table,
+        [uri ^= '/scriptures/bible-chron/tables'] h1 + .topic table{
+                border-top:1px solid #C2C2C2;
+                border-bottom:1px solid #C2C2C2;
+        }
+        [uri ^= '/scriptures/bible-chron/tables'] .figure h1{
+                border-top:none;
+        }
+}
+/* - - - - - - - - - - - - - - - - - - - - - - - - - - - */
+/* iPhone landscape */
+/* - - - - - - - - - - - - - - - - - - - - - - - - - - - */
+@media screen and (max-width:480px){
+        [uri $= '/dc-testament/introduction'] .closingBlock{
+                -webkit-column-count:1;
+        }
+        [uri ^= "/scriptures/dc-testament/od/"] .closingBlock,
+        [uri ^= "/scriptures/pgp/a-of-f/1"] .closingBlock,
+        [uri ^= "/scriptures/dc-testament/od/"] div.para,
+        [uri ^= "/scriptures/pgp/a-of-f/1"] div.para,
+        [uri ^= "/scriptures/bofm/introduction"] .closingBlock{
+                padding-left:1.5em;
+        }
+}
+/* - - - - - - - - - - - - - - - - - - - - - - - - - - - */
+/* END OF STYLES */
+/* - - - - - - - - - - - - - - - - - - - - - - - - - - - */
+/*
+.leftpg-left, .leftpg-rt, .rtpg-left, .rtpg-rt{
+  vertical-align:top;
+}*/
+.doublepg{
+  position: relative;
+  margin: auto;
+  width: 100%;
+  /* display: table */
+}
+.leftpg, .rtpg{
+  position: relative;
+  top: 0;
+  width: 50%;
+  /* display: table-cell */
+}
+.leftpg{
+  float:left;
+}
+.rtpg{
+  float:right;
+}
+.leftpg-left, .leftpg-rt, .rtpg-left, .rtpg-rt{
+  /* vertical-align:top; */
+  /*position:relative;*/
+  position:absolute;
+  width:100px;
+  /*padding:0 0 1em 0;*/
+  /* overflow:hidden; */
+  /* display: table-cell */
+}
+.leftpg-rt{
+   right 0px;
+   float: right;
+   /* height: 100%; */
+}
+.leftpg-left{
+   left 0px;
+   float: left;
+}
+.rtpg-rt{
+   right 0px;
+   float: right;
+   /* height: 100%; */
+}
+.rtpg-left{
+   left 0px;
+   float: left;
+}                                                               
+/* 2 Column (double page) settings */
+.doublepg {
+        background:#eee;                /* right column background colour */
+}
+.doublepg .leftpg {
+  position: relative;
+  /* left: 5%; */                      /* right column width */
+  background:#fff;                /* left column background colour */
+}
+.doublepg .rtpg {
+  position: relative;
+  /* left: 5%; */                      /* right column width */
+  background:#fff;                /* left column background colour */
+}
+.doublepg .rtpg .rtpg-left, .doublepg .leftpg .leftpg-left {
+  position: relative;
+  width: 50%;                      /* left column content width (column width minus left and right padding) */
+  /* right: 5%; */                       /* right column width plus left column left padding */
+  /* float: left; */
+}
+.doublepg .rtpg .rtpg-rt, .doublepg .leftpg .leftpg-rt {
+  position: relative;
+  width: 50%;                      /* right column content width (column width minus left and right padding) */
+  /* left: 50%; */                       /* (right column width) plus (left column left and right padding) plus (right column left padding) */
+  /* height: 100%; */
+  /* float: right; */
+}
+.doublepg .leftpg .leftpg-rt .column{
+  /*background-image: url("file:///home/brad/devel/gospeldata/src/short_gutter2.png");
+  background-repeat: repeat-y;
+  background-position: right top;*/
+  position: relative;
+  top: 0;
+  width: 90%;
+  margin: auto;
+  /* left: 50%; */                       /* (right column width) plus (left column left and right padding) plus (right column left padding) */
+  /* height: 100%; */
+  /* float: right; */
+}
+.column {
+  position: relative;
+  top: 0;
+  width: 90%;
+  margin: auto;
+}
+.doublecolumn {
+  position: relative;
+  top: 0;
+  width: 90%;
+  margin: auto;
+}
+
+#gutter{
+  /*background-image: url("file:///home/brad/devel/gospeldata/src/short_gutter2.png");
+  background-repeat: repeat-y;
+  background-position: right top;*/
+  z-index:999;
+  width: 100px;
+  position: center;
+}

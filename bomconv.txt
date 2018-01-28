@@ -1,0 +1,335 @@
+#do not put a quotation mark in comments unless prefixed by \' or \"
+titlepage 
+fplb
+f '<div type'
+rp
+fullwidthrt
+fullwidthend 'Christ</p>'
+#close rp and close chapter which ends after next 11/12
+cc
+#close double pg
+c
+dblpgend
+lp
+fullwidthleft
+dblcol
+c '11/12</p>'
+fullwidthend
+#close lp and close chapter, extra div already there from chapter opening
+c
+e
+titlepage
+rp
+fullwidthrt
+dblcol
+c 'Jun</span>.</p>'
+fullwidthend
+cc
+dblpgend
+e
+intro
+fplb
+#next line is sometimes doc-id sometime "type" - and changes from release to release!
+f '<div doc-id'
+rp
+fullwidthrt
+dblcol
+c 'Messiah.</p>'
+fullwidthend
+c
+c
+dblpgend
+e
+ch 3witnesses
+lp
+fullwidthleft
+dblcol
+c 'Harris</p>     </p>'
+fullwidthend
+e
+ch 8witnesses
+fullwidthleft
+dblcol
+c 'Samuel H. Smith</p>     </p>'
+fullwidthend
+c
+e
+ch JStestimony
+rp
+fullwidthrt
+dblcol
+pc 'when, in the'
+#end bodyBlock
+c
+c
+fullwidthend
+c
+c
+dblpgend
+#that was five.  Could have used rplc
+lp
+fullwidthrt
+dblcol
+bb
+po
+pc 'Thummim, and'
+cccc
+rp
+fullwidthrt
+dblcol
+bb
+po
+c 'Mormon</span></span>.</p>'
+fullwidthend
+c
+c
+c
+dblpgend
+e
+ch explanation
+lp
+fullwidthleft
+dblcol
+c 'Smith.</p>'
+c
+c
+e
+illustrations
+ch 1
+rp
+#fullwidthrt #'page-number="1"></span>' #notused'<h1 class=\"title\"' '</div class=\"fullwidth\"><h1 class=\"title\"' 
+fullwidthrt
+dblcol
+c 'record.</p>'
+fullwidthend
+cc
+fwrt
+rpl
+col
+fr '<p class="titleNumber' '<div class="heading"><p class="titleNumber'
+c 'B.C.</small></p>' #just need one since doc-id aleady closed in book heading.
+he
+colb
+rplc 'days.</p>'
+rpr
+colb
+pc 'yea, even'
+rprc
+lp
+lpl
+colb
+po
+pc 'that as he'
+lplc
+lpr 
+colb
+po
+pc 'and spake'
+lprc
+rp
+rpl
+colb
+po
+pc 'over all'
+rplc
+rpr
+colb
+po
+s 'deliverance</span>.</p>'
+e
+ch 2
+col
+hc 'B.C.</small>'
+he
+colb
+pc 'save it'
+rprc
+lp
+lpl
+colb
+po
+pc 'of Laman and'
+lplc
+lpr
+colb
+po
+pc 'of God,'
+lprc
+rp
+rpl
+colb
+po
+pc 'no power over'
+rplc
+rpr
+colb
+po
+s 'remembrance.</p>'
+e
+ch 3
+col
+hc 'B.C.</small>'
+he
+colb
+pc 'required it of'
+rprc
+lp
+lpl
+colb
+po
+lplc 'will slay thee.</p>'
+lpr
+colb
+lprc 'this present time.</p>'
+rp
+rpl
+colb
+pc 'pass as they'
+rplc
+rpr
+colb
+po
+s 'why not us?</p>'
+e
+ch 4
+col
+hc 'B.C.</small>'
+he
+colb
+pc 'Pharaoh'
+rprc
+lp
+lpl
+colb
+po
+lplc 'not slay him.</p>'
+lpr
+colb
+pc 'smitten off his'
+lprc
+rp
+rpl
+colb
+po
+pc 'that I called'
+rplc
+rpr
+colb
+po
+fskip 'pass that when'
+pc 'pass that when'
+rprc
+lp
+lpl
+colb 
+po
+s 'father.</p>'
+e
+ch 5
+col
+hc 'B.C.</small>'
+he
+colb
+lplc 'with my brethren.</p>'
+lpr
+colb
+pc 'our first parents;'
+lprc
+rp
+rpl
+colb
+pc 'said that these'
+rplc
+rpr
+colb 
+s 'land of promise.</p>'
+e
+ch 6
+col
+hc 'B.C.</small>'
+he
+colb
+#span end was after next word, but that will not work here
+s 'these '
+fr 'these ' 'these</span>' -20
+pc 'these</span>'
+rprc
+lp
+lpl
+colb
+po
+fr 'plates</span>' 'plates'  '-10'  
+s 'men.</p>'
+e
+ch 7
+col
+hc 'B.C.</small>'
+he
+colb
+pc 'Jerusalem, and'
+lplc
+lpr
+colb
+po
+lprc 'of the Lord?</p>'
+rp
+rpl
+colb
+pc 'me with'
+rplc
+rpr
+colb
+po
+pc 'pass that we did'
+rprc
+lp
+lpl
+colb
+po
+s 'him.</p>'
+e
+ch 8
+col
+hc 'B.C.</small>'
+he
+colb
+lplc 'follow him.</p>'
+lpr
+colb
+fskip 'to pass that I'
+fskip 'to pass that I'
+pc 'to pass that I'
+lprc
+rp
+rpl
+colb
+po
+pc 'did lose their'
+rplc
+rpr
+colb
+po
+pc 'continually holding'
+rprc
+lp
+lpl
+colb
+po
+pc ', he bade them'
+lplc
+lpr
+colb
+po
+s 'them.</p>'
+e
+ch 9
+col
+hc 'B.C.</small>'
+he
+colb
+lprc 'tions of my people.</p>'
+rp
+rpl
+colb
+s 'Amen.</p>'
+e
