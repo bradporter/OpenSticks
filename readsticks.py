@@ -294,6 +294,10 @@ def parseInputString(cmd):
               book='a-of-f'
        elif cmds[2]=='b':
           mainbook='bofm'
+          if cmds[3]=='t':
+              book='title-page'
+          if cmds[3]=='i':
+              book='introduction'
           if cmds[3]=='n':
               book='1-ne'
           if cmds[3]=='nn':
@@ -386,18 +390,12 @@ def getChapter_2col(volume,mainbook,db_id_ref,cmd):
            db_id=c.fetchone()  #a tuple of form (id,)
            db_id=db_id[0]
            db_id_ref=db_id
-        c.execute('select content from subitem_content where subitem_id=%d;' % (db_id) )
+        c.execute('select * from subitem_content where subitem_id=%d;' % (db_id) )
         chapter = c.fetchone()
         for i, column in enumerate(c.description):
             name=column[0]
             if name in ['content_html','content']:
-                try:
-                    #newer databases need this (later than sometime between summer 2016 and fall 2017)
-                    chapterhtml=BeautifulSoup(chapter[i],"html.parser")
-                    chapterhtml=str(chapterhtml)
-                    chapterhtml=str(chapter[i])
-                except:
-                    chapterhtml=chapter[i]
+                chapterhtml=chapter[i]
         # Get and parse the chapter's HTML into a document
         '''
         doc=BeautifulSoup(chapterhtml,"html.parser")
@@ -448,12 +446,7 @@ def getChapter_2col(volume,mainbook,db_id_ref,cmd):
         for i, column in enumerate(c.description):
             name=column[0]
             if name in ['content_html','content']:
-                try:
-                    #newer databases need this (later than sometime between summer 2016 and fall 2017)
-                    chapterhtml=str(BeautifulSoup(chapter[i],"html.parser"))
-                    chapterhtml=str(chapter[i])
-                except:
-                    chapterhtml=chapter[i]
+                chapterhtml=chapter[i]
         # Get and parse the chapter's HTML into a document
         '''
         doc=BeautifulSoup(chapterhtml,"html.parser")
@@ -610,13 +603,7 @@ def getChapter_scroll(cmd):
     for i, column in enumerate(c.description):
         name=column[0]
         if name in ['content_html','content']:
-            try:
-                #newer databases need this (later than sometime between summer 2016 and fall 2017)
-                #but str seems to work also doesn't change white space like html.parser
-                chapterhtml=str(BeautifulSoup(chapter[i],"html.parser"))
-                chapterhtml=str(chapter[i])
-            except:
-                chapterhtml=chapter[i]
+            chapterhtml=chapter[i]
     # Get and parse the chapter's HTML into a document
     '''
     doc=BeautifulSoup(chapterhtml,"html.parser")

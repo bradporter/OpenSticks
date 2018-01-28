@@ -29,7 +29,7 @@ dblpgend
 e
 intro
 fplb
-#next line is sometimes doc-id sometime "type" - and changes from release to release!
+#next line is sometimes "doc-id" sometimes "type" - and changes from release to release!
 f '<div doc-id'
 rp
 fullwidthrt
@@ -94,7 +94,7 @@ c 'Smith.</p>'
 c
 c
 e
-illustrations
+ch illustrations
 ch 1
 rp
 #fullwidthrt #'page-number="1"></span>' #notused'<h1 class=\"title\"' '</div class=\"fullwidth\"><h1 class=\"title\"' 

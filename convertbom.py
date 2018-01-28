@@ -50,13 +50,7 @@ chapter = c.fetchone()
 for i, column in enumerate(c.description):
     name=column[0]
     if name in ['content_html','content']:
-        try:
-            #newer databases need this (later than sometime between summer 2016 and fall 2017)
-            chapterhtml=BeautifulSoup(chapter[i],"html.parser")
-            chapterhtml=str(chapterhtml)
-            chapterhtml=str(chapter[i])
-        except:
-            chapterhtml=chapter[i]
+        chapterhtml=chapter[i]
 # Get and parse the chapter's HTML into a document
 #print(chapterhtml)
 #remove all divs: 
@@ -84,13 +78,7 @@ for line in keyfile:
        for i, column in enumerate(c.description):
             name=column[0]
             if name in ['content_html','content']:
-                try:
-                    #newer databases need this (later than sometime between summer 2016 and fall 2017)
-                    #chapterhtml=BeautifulSoup(chapter[i],"html.parser")
-                    #chapterhtml=str(chapterhtml)
-                    chapterhtml=str(chapter[i])
-                except:
-                    chapterhtml=chapter[i]
+                chapterhtml=chapter[i]
        docp=str(chapterhtml)
        #pdb.set_trace()
        index=0
@@ -350,13 +338,7 @@ for line in keyfile:
         for i, column in enumerate(c.description):
              name=column[0]
              if name in ['content_html','content']:
-                try:
-                    #newer databases need this (later than sometime between summer 2016 and fall 2017)
-                    chapterhtml=BeautifulSoup(chapter[i],"html.parser")
-                    chapterhtml=str(chapterhtml)
-                    chapterhtml=str(chapter[i])
-                except:
-                    chapterhtml=chapter[i]
+                 chapterhtml=chapter[i]
         docp2=str(chapterhtml)
         index2=1
         docp2='<div class=\"doublepg\"><div class=\"fullpgleft\">' + docp2
@@ -376,13 +358,7 @@ for line in keyfile:
         for i, column in enumerate(c.description):
              name=column[0]
              if name in ['content_html','content']:
-                try:
-                    #newer databases need this (later than sometime between summer 2016 and fall 2017)
-                    chapterhtml=BeautifulSoup(chapter[i],"html.parser")
-                    chapterhtml=str(chapterhtml)
-                    chapterhtml=str(chapter[i])
-                except:
-                    chapterhtml=chapter[i]
+                 chapterhtml=chapter[i]
         docp2=str(chapterhtml)
         index2=1
         docp2='<div class=\"fullpgrt\">' + docp2
@@ -391,8 +367,13 @@ for line in keyfile:
         docp=docp[:index]+docp2+docp[index:]
         index=docp.find('endfacs3')+12
     #best to do this just before closing, but can leave for debug.
-    #if you use the next line, it will write to the file even if there is an error later, otherwise not.
-    newconn.commit() #commit changes
+    #if you use the next lines, it will write to the file even if there is an error later, otherwise not.
+    try:
+      cnew.execute("update subitem_content_fts_content set c1content=\'%s\' where c0subitem_id=%d;" % (docp,db_id))
+      newconn.commit() #commit changes
+    except:
+      print 'end if'
+      # nothing
 
 
 '''

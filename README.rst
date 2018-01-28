@@ -9,7 +9,6 @@ Usage:
                               
 * Use getdata.py to download the scripture databases in Catalog.sqlite.
 
-    *  TEMPORARY ISSUE:  Sometime between 2016 and 2017, the database format has changed.  Instead of returning an html unicode string, pointer is returned.  Currently, a copy of the database 2016 or earlier will need to be used.  I do not know if this can be obtained from lds.org.  For debugging the problem with the new database format, use the following:
     *  Prior to running getdata.py:
 
         1. Get Catalog version number: 
@@ -25,6 +24,8 @@ Usage:
 Ctrl-S highlights the search bar in lower left corner.  Type /s/b/n/2 to see 1 Nephi 2.  Ctrl-n = nextpage.  Ctrl-p = previous page.  Type /s/b/n/2/s to see an indented version of the source, which is quite valuable in debugging errors in bomconv.txt and convertbom.py.
 
 The file opensticks_gtkwebkit.py is a minimally modified version of  `pybrowser.py <https://gist.github.com/kklimonda/890640>`_ which calls readsticks.py.  It is intended to easily be replaced by any other gui program.
+
+New Issue: Late 2017: The newest database version swapped the order of tags in the chapter 1 html heading, breaking bomconv.txt.  Fixable, but begs the question as to whether some coordination with Church developers is needed as to the standard, before investing much more time.  As of late 2017, the code can be tested with /s/b/t and /s/b/i for the title page and intro.  Ctrl-n shows the testimonies.
 
 .. image:: 1ne.png
 
@@ -83,7 +84,9 @@ convertbom.py:  CreativeCommons ...
 
 readsticks.py:  CreativeCommons ...   
 
-opensticks_gtkwebkit.py  (Unknown.  See `pybrowser.py <https://gist.github.com/kklimonda/890640>`_.  This is not critical since this is the gui wrapper likely to be completely replaced if used on a platform other than linux.)   
+opensticks_gtkwebkit.py:  (Unknown.  See `pybrowser.py <https://gist.github.com/kklimonda/890640>`_.  This is not critical since this is the gui wrapper likely to be completely replaced if used on a platform other than linux.)   
+
+sticks.css:  Modified version of style_classicScripture.css, from the lds.org database download.  
 
 Road map:
 ---------
