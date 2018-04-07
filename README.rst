@@ -25,7 +25,9 @@ Ctrl-S highlights the search bar in lower left corner.  Type /s/b/n/2 to see 1 N
 
 The file opensticks_gtkwebkit.py is a minimally modified version of  `pybrowser.py <https://gist.github.com/kklimonda/890640>`_ which calls readsticks.py.  It is intended to easily be replaced by any other gui program.
 
-New Issue: Late 2017: The newest database version swapped the order of tags in the chapter 1 html heading, breaking bomconv.txt.  Fixable, but begs the question as to whether some coordination with Church developers is needed as to the standard, before investing much more time.  As of late 2017, the code can be tested with /s/b/t and /s/b/i for the title page and intro.  Ctrl-n shows the testimonies.
+New Issue: Late 2017: The newest database version swapped the order of tags in the chapter 1 html heading, breaking bomconv.txt.  It's fixable, but begs the question as to whether some coordination with Church developers is needed as to the standard, before investing much more time.
+
+As of late 2017, the code can be tested with /s/b/t and /s/b/i for the title page and intro.  Ctrl-n shows the testimonies.
 
 .. image:: 1ne.png
 
@@ -38,7 +40,7 @@ FAQ
 
 3. **What modifications are made to the database?**  The modified database adds <div>'s as described in pagelayout.pdf.  The database should still be readable by existing programs, such as Gospel Library, as they will simply ignore the extra column break div's.  The one place this will break down is when a verse is split across a column break.  In the original database, each verse is a paragraph.  It is necessary to end the paragraph in the middle of the verse at the end of a column, then start a new paragraph at the beginning of the next column.  Currently, the new paragraph does not have an id.  The annotation system may not know how to deal with this.  In OpenSticks, this new paragraph will probably need to be given an id before annotations can reliably be added.
 
-4. **Why not modify the database and distribute the modified version?**  I don't know if this would be a copyright violation ... probably.  Hopefully, the Church will one day distribute a version with <div> tags marking column start and end, or grant permission to distribute a modified database here.  
+4. **Why not modify the database and distribute the modified version?**  I don't know if this would be a copyright violation ... probably.  Hopefully, the Church will one day distribute a version with <div> tags marking column start and end.
 
 ..   don't need this   raw:: html
    <object data="pagelayout.pdf" type="application/pdf" width="700px" height="700px">
