@@ -1,4 +1,14 @@
+'''
+Derived from pybrowser.py ( https://gist.github.com/kklimonda/890640 (License unknown)) 
+Derivation by Brad Porter 2018
+
+While the license is unknown, this file is not likely to be used except in open source, free versions.  For platforms other than linux, this would be replaced, by another GUI.
+'''
+                 
 import sys
+import gi
+gi.require_version("Gtk", "3.0")
+gi.require_version('WebKit', '3.0')
 from gi.repository import Gtk, Gdk, WebKit
 import readsticks as rs
 
@@ -8,11 +18,19 @@ class BrowserTab(Gtk.VBox):
     db_id_prev=0
     volume=''
     mainbook=''
+    pgformat='scroll' # set default: scroll or 2col
     def __init__(self, *args, **kwargs):
         super(BrowserTab, self).__init__(*args, **kwargs)
 
-        go_button = Gtk.Button("go to...")
+        go_button = Gtk.Button("go to ...")
         go_button.connect("clicked", self._load_url)
+        pgformat_button = Gtk.Button("Toggle Page Format")
+        pgformat_button.connect("clicked", self._pgformat_toggle)
+        self.pgformatLabel = Gtk.Label()
+        self.pgformatLabel.set_text("Scroll")
+        #self.pgformatLabel.set_justify(Gtk.Justification.LEFT)
+        #So replace label.set_justify(gtk.JUSTIFY_LEFT) with 
+        self.pgformatLabel.set_alignment(0, 0) #and it should work.
         self.url_bar = Gtk.Entry()
         self.url_bar.connect("activate", self._load_url)
         self.webview = WebKit.WebView()
@@ -68,11 +86,17 @@ class BrowserTab(Gtk.VBox):
         url_box.pack_start(self.url_bar, True, True, 0)
         url_box.pack_start(go_button, False, False, 0)
 
+        sticks_box = Gtk.HBox()
+        sticks_box.pack_start(pgformat_button, False, False, 0)
+        sticks_box.pack_start(self.pgformatLabel, True, True, 0)
+
         self.pack_start(url_box, False, False, 0)
+        self.pack_start(sticks_box, False, False, 0)
         self.pack_start(scrolled_window, True, True, 0)
         self.pack_start(find_box, False, False, 0)
 
         url_box.show_all()
+        sticks_box.show_all()
         scrolled_window.show_all()
 
     def _load_url(self, widget):
@@ -82,7 +106,10 @@ class BrowserTab(Gtk.VBox):
         self.webview.load_uri(url)
 
     def getChapterString(self, volume, mainbook, db_id, gotoString):
-        self.volume, self.mainbook, self.db_id_prev, self.db_id_next, htmlstring=rs.getChapter_2col(volume, mainbook, db_id, gotoString)
+        if(self.pgformat=='2col'):
+           self.volume, self.mainbook, self.db_id_prev, self.db_id_next, htmlstring=rs.getChapter_2col(volume, mainbook, db_id, gotoString)
+        elif(self.pgformat=='scroll'):
+           self.volume, self.mainbook, self.db_id_prev, self.db_id_next, htmlstring=rs.getChapter_scroll(volume, mainbook, db_id, gotoString)
         #next line is in rs
         #addcss='<head> <link href=\"sticks.css\" rel=\"stylesheet\" type=\"text/css\" /></head>'
         #
@@ -94,6 +121,16 @@ class BrowserTab(Gtk.VBox):
     def prevpage(self):
         self.webview.load_html_string(self.getChapterString(self.volume, self.mainbook, self.db_id_prev,''), base_uri='file:///media/brad/002C-270E/rsync/gospeldata/data/_scriptures_pgp_000/')
 
+    def _pgformat_toggle(self, widget):
+        if(self.pgformat=='2col'):
+            self.pgformat='scroll'
+            self.pgformatLabel.set_text("Scroll")
+            print 'scroll'
+        else:
+            self.pgformat='2col'
+            self.pgformatLabel.set_text("Two Column")
+            print '2col'
+
 class Browser(Gtk.Window):
     def __init__(self, *args, **kwargs):
         super(Browser, self).__init__(*args, **kwargs)
@@ -104,7 +141,7 @@ class Browser(Gtk.Window):
 
 	# basic stuff
         self.tabs = []
-	self.set_size_request(400,400)
+	self.set_size_request(1200,600)
 
         # create a first, empty browser tab
         self.tabs.append((self._create_tab(), Gtk.Label("New Tab")))

@@ -1,3 +1,13 @@
+'''
+Copyright 2018 Brad Porter 
+
+Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+'''
+ 
 from gi.repository import Gtk, Gdk, WebKit
 import requests
 import sqlite3
@@ -7,6 +17,8 @@ import os
 from zipfile import ZipFile
 from bs4 import BeautifulSoup
 import re
+from unidecode import unidecode
+import htmlToText
 
 '''
 #select database
@@ -135,123 +147,136 @@ def myprettify_2space(s, encoding=None, formatter="minimal"):
     html=loop(s)
     return str(html)
     
-def htmlToText(html):
-    def _getElement(subhtml,name,end=None):
-        ename = "<"+name+">"
-        a = subhtml.lower().find(ename)
-        if a == -1:
-            ename = "<"+name+" "
-            a = subhtml.lower().find(ename)
-        if a == -1: return
-        if end == None: end = "</"+name+">"
-        b = subhtml.lower()[a+len(ename):].find(end)+a+len(end)+len(ename)
-        if b-a-len(end)-len(ename) == -1:
-            b = subhtml[a+len(ename):].find('>')+a+len('>')+len(ename)
-        return subhtml[a:b]
-    def _getElementAttribute(element,name):
-        a = element.lower().find(name+'="')+len(name+'="')
-        if a == -1: return
-        b = element[a:].find('"')+a
-        return element[a:b]
-    def _getElementContent(element):
-        a = element.find(">")+len(">")
-        if a == -1: return
-        b = len(element)-element[::-1].find('<')-1
-        return element[a:b]
-    ret = ""
-    #if you wish get Title
-    headElement = _getElement(html,'head')
-    if headElement:
-        titleElement = _getElement(headElement, 'title')
-        if titleElement:
-            titleContent = _getElementContent(titleElement)
-            if titleContent:
-                ret += titleContent+"\n\n"
-    #get body content
-    bodyElement = _getElement(html,'body')
-    if bodyElement:
-        bodyContent = _getElementContent(bodyElement)
-        if bodyContent:
-            ret += bodyContent
-            #remove javascript
-            while True:
-                scriptElement = _getElement(ret, 'script')
-                if not scriptElement: scriptElement = _getElement(ret, 'script', '</noscript>')
-                if not scriptElement: break
-                ret = ret.replace(scriptElement, '')
-            #remove style
-            while True:
-                styleElement = _getElement(ret, 'style')
-                if not styleElement: break
-                ret = ret.replace(styleElement, '')
-            #replace links
-            while True:
-                linkElement = _getElement(ret, 'a')
-                if not linkElement: break
-                linkElementContent = _getElementContent(linkElement)
-                if linkElementContent:
-
-                    #this will replace: '<a href="https://some.site">text</a>' -> 'text'
-#                   ret = ret.replace(linkElement, linkElementContent)
-
-                    #this will replace: '<a href="https://some.site">link</a>' -> 'https://some.site'
-#                   linkElementHref = _getElementAttribute(linkElement, 'href')
-#                   if linkElementHref:
-#                       ret = ret.replace(linkElement, linkElementHref)
-
-                    #this will replace: '<a href="https://some.site">link</a>' -> 'text ( https://some.site )'
-                    linkElementHref = _getElementAttribute(linkElement, 'href')
-                    if linkElementHref:
-                        ret = ret.replace(linkElement, linkElementContent+' ( '+linkElementHref+' )')
-
-            #replace paragraphs
-            while True:
-                paragraphElement = _getElement(ret, 'p')
-                if not paragraphElement: break
-                paragraphElementContent = _getElementContent(paragraphElement)
-                if paragraphElementContent:
-                    ret = ret.replace(paragraphElement, '\n\n'+paragraphElementContent+'\n\n')
-                else:
-                    ret = ret.replace(paragraphElement, '')
-            #replace line breaks
-            ret = ret.replace('<br>', '\n')
-            ret = ret.replace('<br/>', '\n')
-            #replace bolds
-            while True:
-                boldElement = _getElement(ret, 'b')
-                if not boldElement: break
-                boldElementContent = _getElementContent(boldElement)
-                if boldElementContent:
-                    ret = ret.replace(boldElement, boldElementContent.upper())
-                else:
-                    ret = ret.replace(boldElement, '')
-            #replace images
-            while True:
-                imgElement = _getElement(ret, 'img')
-                if not imgElement: break
-                imgElementSrc = _getElementAttribute(imgElement, 'src')
-                if imgElementSrc:
-                    ret = ret.replace(imgElement, '[IMG] '+imgElementSrc+' [IMG]')
-                else:
-                    ret = ret.replace(imgElement, '')
-            #remove rest elements
-            while True:
-                a = ret.find("<")
-                if a == -1: break
-                b = ret[a:].find(">")+a
-                if b-a == -1: break
-                b2 = ret[b:].find(">")+b
-                if b2-b == -1: break
-                element = _getElement(ret, ret[a+1:b2])
-                if element:
-                    elementContent = _getElementContent(element)
-                    if elementContent:
-                        ret = ret.replace(element, elementContent)
-                    else:
-                        ret = ret.replace(element, '')
-    return ret
-
 #print htmlToText(html)
+def getscripturebooks(mainbook,book):
+       # find books with sqlite> select * from nav_collection; 
+       if mainbook=='p':
+          mainbook='pgp'
+          switch= {
+            "t": "title-page",
+            'i': "introduction",
+            'm': "moses",
+            'a': 'abr',
+            'jh': 'js-h',
+            'jm': 'js-m',
+            'af': 'a-of-f',
+          }
+          return mainbook, switch.get(book,'title-page')
+       elif mainbook=='b':
+          mainbook='bofm'
+          switch= {
+              't':'title-page',
+              'i':'introduction',
+              'n':'1-ne',
+              'nn':'2-ne',
+              'j':'jacob',
+              'e':'enos',
+              'jm':'jarom',
+              'o':'omni',
+              'w':'w-of-m',
+              'm':'mosiah',
+              'a':'alma',
+              'h':'hel',
+              'nnn':'3-ne',
+              'nnnn':'4-ne',
+              'mn':'morm',
+              'er':'ether',
+              'mi':'moro',
+          }
+          return mainbook, switch.get(book,'title-page')
+       elif mainbook=='n':
+          mainbook='nt'
+          switch={
+              'ma':'matt',
+              'mar':'mark',
+              'lu':'luke',
+              'jo':'john',
+              'ac':'acts',
+              'ro':'rom',
+              '1c':'1-cor',
+              '2c':'2-cor',
+              'ga':'gal',
+              'ep':'eph',
+              'ps':'philip',
+              'phili':'philip',
+              'co':'col',
+              '1th':'1-thes',
+              '2th':'2-thes',
+              '1ti':'1-tim',
+              '2ti':'2-tim',
+              'ti':'titus',
+              'pm':'philem',
+              'phile':'philem',
+              'he':'heb',
+              'ja':'james',
+              '1p':'1-pet',
+              '2p':'2-pet',
+              '1j':'1-jn',
+              '2j':'2-jn',
+              '3j':'3-jn',
+              'ju':'jude',
+              're':'rev',
+          }
+          return mainbook, switch.get(book,'matt')
+       elif mainbook=='o':
+          mainbook='ot'
+          switch={
+                  'ge':'gen',
+                  'ex':'ex',
+                  'le':'lev',
+                  'nu':'num',
+                  'de':'deut',
+                  'jo':'josh',
+                  'ju':'judg',
+                  'ru':'ruth',
+                  's':'1-sam',
+                  'ss':'2-sam',
+                  'k':'1-kgs',
+                  'kk':'2-kgs',
+                  'c':'1-chr',
+                  'cc':'2-chr',
+                  'ezr':'ezra',
+                  'ne':'neh',
+                  'es':'esth',
+                  'jo':'job',
+                  'ps':'ps',
+                  'pr':'prov',
+                  'ec':'eccl',
+                  'so':'song',
+                  'is':'isa',
+                  'je':'jer',
+                  'la':'lam',
+                  'eze':'ezek',
+                  'da':'dan',
+                  'ho':'hosea',
+                  'joe':'joel',
+                  'am':'amos',
+                  'ob':'obad',
+                  'jon':'jonah',
+                  'mi':'micah',
+                  'na':'nahum',
+                  'hab':'hab',
+                  'ze':'zeph',
+                  'hag':'hag',
+                  'za':'zech',
+                  'ma':'mal',
+          }
+          return mainbook, switch.get(book,'gen')
+       elif mainbook=='d':
+          mainbook='dc-testament'
+          switch={
+                  'd':'dc',
+                  'o':'od',
+                  }
+          return mainbook, switch.get(book,'dc')
+
+def volumeswitch(volume):
+    switch={
+            's':'scriptures',
+            'hb':'handbook',
+           }
+    return switch.get(volume,'bofm')
+
 
 def parseInputString(cmd):
     #parse input
@@ -274,64 +299,18 @@ def parseInputString(cmd):
                #format(tn=table_name, cn=column_2))
        #c.execute('SELECT _id, external_id, title, latest_version FROM item WHERE language_id=1 ORDER BY _id LIMIT 5;')
        
-    elif (cmds[1]=='s'):
-       volume='scriptures'
-       if cmds[2]=='p':
-          mainbook='pgp'
-          if cmds[3]=='t':
-              book='title-page'
-          if cmds[3]=='i':
-              book='introduction'
-          if cmds[3]=='m':
-              book='moses'
-          if cmds[3]=='a':
-              book='abr'
-          if cmds[3]=='jh':
-              book='js-h'
-          if cmds[3]=='jm':
-              book='js-m'
-          if cmds[3]=='af':
-              book='a-of-f'
-       elif cmds[2]=='b':
-          mainbook='bofm'
-          if cmds[3]=='t':
-              book='title-page'
-          if cmds[3]=='i':
-              book='introduction'
-          if cmds[3]=='n':
-              book='1-ne'
-          if cmds[3]=='nn':
-              book='2-ne'
-          if cmds[3]=='j':
-              book='jacob'
-          if cmds[3]=='e':
-              book='enos'
-          if cmds[3]=='j':
-              book='jarom'
-          if cmds[3]=='o':
-              book='omni'
-          if cmds[3]=='w':
-              book='w-of-m'
-          if cmds[3]=='m':
-              book='mosiah'
-          if cmds[3]=='a':
-              book='alma'
-          if cmds[3]=='h':
-              book='hel'
-          if cmds[3]=='nnn':
-              book='3-ne'
-          if cmds[3]=='nnnn':
-              book='4-ne'
-          if cmds[3]=='mn':
-              book='morm'
-          if cmds[3]=='er':
-              book='ether'
-          if cmds[3]=='mi':
-              book='moro'
-       elif cmds[2]=='o':
-          mainbook='ot'
-       elif cmds[2]=='n':
-          mainbook='nt'
+    else:
+        volume=volumeswitch(cmds[1])
+        if(volume=='scriptures'):
+            mainbook=volumeswitch(cmds[2])
+            mainbook,book=getscripturebooks(cmds[2],cmds[3])
+        if(volume=='handbook'):
+            volume='handbook'
+            #_handbook_handbook-2-administering-the-church_000
+            mainbook='handbook-2-administering-the-church'
+            book='title-page'
+            chap=''
+
     try:
         chap=cmds[4]
     except:
@@ -404,7 +383,12 @@ def getChapter_2col(volume,mainbook,db_id_ref,cmd):
         print(doc.get_text())
         '''
         #need to find page end and only include up to that point
-        posthtml=posthtml+chapterhtml
+        try:
+           posthtml=posthtml+chapterhtml
+        except:
+           print db_chapstr
+           posthtml=posthtml+unidecode(unicode(chapterhtml,encoding="utf-8"))
+
         #endpage=posthtml.find('</div></div></div></div>')
         if endpage==-1:
            endpage=posthtml[0:].find('<!-- dblpgend -->')
@@ -501,86 +485,18 @@ def getChapter_2col(volume,mainbook,db_id_ref,cmd):
        return volume, mainbook, db_id_prev, db_id_next, str(pagehtml.encode('utf-8'))
     #return str(chapterhtml)
 
-def getChapter_scroll(cmd):
+def getChapter_scroll(volume,mainbook,db_id_ref,cmd):
+    #todo   use same func for 2col and scroll ...   cmdParse(cmd)
     #cmd='/s/p/m/3'
-    #parse input
-    if cmd[0]=='/':
-       cmds=cmd.split('/')
-    if (cmds[1]=='ll'):
-       # Connecting to the database file
-       sqlite_file='Catalog.sqlite'
-       try:
-          conn = sqlite3.connect(sqlite_file)
-       except:
-          print "failed to connect"
-          sys.exit()
-
-       ##   !!!!  notdonehere
-
-       c = conn.cursor()
-       # 1) Contents of all columns for row that match a certain value in 1 column
-       #c.execute('SELECT * FROM {tn} WHERE {cn}="Hi World"'.\
-               #format(tn=table_name, cn=column_2))
-       #c.execute('SELECT _id, external_id, title, latest_version FROM item WHERE language_id=1 ORDER BY _id LIMIT 5;')
-       
-    elif (cmds[1]=='s'):
-       volume='scriptures'
-       if cmds[2]=='p':
-          mainbook='pgp'
-          if cmds[3]=='m':
-              book='moses'
-          if cmds[3]=='a':
-              book='abr'
-          if cmds[3]=='jh':
-              book='js-h'
-          if cmds[3]=='jm':
-              book='js-m'
-          if cmds[3]=='af':
-              book='a-of-f'
-       elif cmds[2]=='b':
-          mainbook='bofm'
-          if cmds[3]=='n':
-              book='1-ne'
-          if cmds[3]=='nn':
-              book='2-ne'
-          if cmds[3]=='j':
-              book='jacob'
-          if cmds[3]=='e':
-              book='enos'
-          if cmds[3]=='j':
-              book='jarom'
-          if cmds[3]=='o':
-              book='omni'
-          if cmds[3]=='w':
-              book='w-of-m'
-          if cmds[3]=='m':
-              book='mosiah'
-          if cmds[3]=='a':
-              book='alma'
-          if cmds[3]=='h':
-              book='hel'
-          if cmds[3]=='nnn':
-              book='3-ne'
-          if cmds[3]=='nnnn':
-              book='4-ne'
-          if cmds[3]=='mn':
-              book='morm'
-          if cmds[3]=='er':
-              book='ether'
-          if cmds[3]=='mi':
-              book='moro'
-       elif cmds[2]=='o':
-          mainbook='ot'
-       elif cmds[2]=='n':
-          mainbook='nt'
+    sourcecode=False
+    if db_id_ref<0:
+       #parse input
+       volume, mainbook, book, chap, sourcecode = parseInputString(cmd)
+       print volume, mainbook, book, chap
 
     #sqlite_file = 'data/_scriptures_pgp_000/new.sqlite'    # name of the sqlite database file
     sqlite_file = 'data/_'+volume+'_'+mainbook+'_000/package.sqlite'    # name of the sqlite database file
     print sqlite_file
-    db_chapstr='/'+volume+'/'+mainbook+'/'+book+'/'+cmds[4]    # name of the sqlite database file
-    print db_chapstr
-
-    # Connecting to the database file
     try:
        conn = sqlite3.connect(sqlite_file)
     except:
@@ -588,6 +504,27 @@ def getChapter_scroll(cmd):
        sys.exit()
 
     c = conn.cursor()
+    pagehtml=''
+    db_id=db_id_ref
+    if(1):  #this is just here to match the while loop indentation in 2col
+        if db_id==-1:  #then we don't know the id yet
+           if chap=='':
+              db_chapstr='/'+volume+'/'+mainbook+'/'+book             # name of the sqlite database file
+           else:
+              db_chapstr='/'+volume+'/'+mainbook+'/'+book+'/'+chap    # name of the sqlite database file
+           print db_chapstr
+           c.execute('select _id from subitem where uri=\"%s\";' % (db_chapstr) )
+           db_id=c.fetchone()  #a tuple of form (id,)
+           db_id=db_id[0]
+           db_id_ref=db_id
+        c.execute('select * from subitem_content where subitem_id=%d;' % (db_id) )
+        chapter = c.fetchone()
+        for i, column in enumerate(c.description):
+            name=column[0]
+            if name in ['content_html','content']:
+                chapterhtml=chapter[i]
+
+    pagehtml=pagehtml+str(chapterhtml)
     # 1) Contents of all columns for row that match a certain value in 1 column
     #c.execute('SELECT * FROM {tn} WHERE {cn}="Hi World"'.\
             #format(tn=table_name, cn=column_2))
@@ -595,15 +532,7 @@ def getChapter_scroll(cmd):
     #c.execute('select content from subitem_content where subitem_id=1;')
     #chapter = c.fetchall()
     ##do nothing to title
-    print db_chapstr
-    c.execute('select _id from subitem where uri=\"%s\";' % (db_chapstr) )
-    db_id=c.fetchone()
-    c.execute('select * from subitem_content where subitem_id=%d;' % (db_id) )
-    chapter = c.fetchone()
-    for i, column in enumerate(c.description):
-        name=column[0]
-        if name in ['content_html','content']:
-            chapterhtml=chapter[i]
+
     # Get and parse the chapter's HTML into a document
     '''
     doc=BeautifulSoup(chapterhtml,"html.parser")
@@ -611,10 +540,20 @@ def getChapter_scroll(cmd):
 
     print(doc.get_text())
     '''
+    pagehtml='<head> <link href=\"file:///home/brad/devel/gospeldata/src/sticks.css\" rel=\"stylesheet\" type=\"text/css\" /  ></head> '+pagehtml
+    if sourcecode=='s':
+       doc=BeautifulSoup(chapterhtml,"html.parser")
+       #docp=(doc.prettify())
+       docp=prettify_2space(doc)
+       pagehtml='<plaintext>'+docp
+       #docp=prettify_2space(str(doc))
+       #pagehtml='<plaintext>' + str(docp)
+
 
 
     # Closing the connection to the database file
     conn.close()
+
 
     '''
     #view.load_html_string(docp, '')
@@ -632,7 +571,16 @@ def getChapter_scroll(cmd):
     #f.close()
     #use the following for doublecol otherwise remove utf-8
     #return str(chapterhtml.encode('utf-8'))
-    return str(chapterhtml)
+    print "###############################################################"
+    db_id_prev=db_id-1
+    db_id_next=db_id+1
+    if sourcecode=='s':
+       print (pagehtml)
+       return volume, mainbook, db_id_prev, db_id_next, (pagehtml)
+    else:
+       #print str(pagehtml.encode('utf-8'))
+       #return volume, mainbook, db_id_prev, db_id_next, str(pagehtml.encode('utf-8'))
+       return volume, mainbook, db_id_prev, db_id_next, str(pagehtml)
 
 #teststring='/s/b/n/2'
 #ch=getChapter_2col('scriptures','bofm',5,teststring)

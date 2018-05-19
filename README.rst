@@ -21,26 +21,28 @@ Usage:
 * Use convertbom.py to create a modified Book of Mormon database file.  This reads bomconv.txt, which contains instructions on how to modify the database.  This is only the first few chapters of the book.  It's work to update, so I'm looking for feedback on the html methodology before continuing.
 * Run opensticks_gtkwebkit.py
 
-Ctrl-S highlights the search bar in lower left corner.  Type /s/b/n/2 to see 1 Nephi 2.  Ctrl-n = nextpage.  Ctrl-p = previous page.  Type /s/b/n/2/s to see an indented version of the source, which is quite valuable in debugging errors in bomconv.txt and convertbom.py.
+Ctrl-S highlights the search bar in lower left corner.  Type /s/b/n/2 to see 1 Nephi 2.  Type /s/b/n/2/s to see an indented version of the source, which is quite valuable in debugging errors in bomconv.txt and convertbom.py.  Currently, it is necessary to view the source to see all the short cuts, but generally one character for the volume, b, o, n, d, p, and two characters for the book within the volume.  Ctrl-n = nextpage.  Ctrl-p = previous page.  This is much faster than swiping a finger across a screen when one needs to advance 20 chapters (pages through the entire Old Testament in 30 seconds by holding down Ctrl-n continuously).
 
-The file opensticks_gtkwebkit.py is a minimally modified version of  `pybrowser.py <https://gist.github.com/kklimonda/890640>`_ which calls readsticks.py.  It is intended to easily be replaced by any other gui program.
+Hit the button "Toggle Page Format".  Now it is in 2 column page format.  Type Ctrl-S, then "/s/b/n/t" to see the title page.  For an illustration of the double page format, type Ctrl-n a until the Testimonies page is visible.  Ctrl-n does not work any farther due to the database issue described below.
 
 New Issue: Late 2017: The newest database version swapped the order of tags in the chapter 1 html heading, breaking bomconv.txt.  It's fixable, but begs the question as to whether some coordination with Church developers is needed as to the standard, before investing much more time.
 
-As of late 2017, the code can be tested with /s/b/t and /s/b/i for the title page and intro.  Ctrl-n shows the testimonies.
+As of late 2017, the code can be tested with /s/b/t and /s/b/i for the title page and intro.  Ctrl-n shows the testimonies.  For title page and introduction, source is shown with /s/b/t//s and /s/b/t//i.
 
 .. image:: 1ne.png
 
 FAQ
 ---
 
-1. **What's in the name "OpenSticks"?**  Sticks is a reference to scrolls, as described in Ezekiel 37:16-20.  Members of the Church of Jesus Christ of latter-day Saints generally regard the "stick of Judah" to be the Bible and the "stick of Joseph" to be the Book of Mormon, having been written by descendants of Ephraim.  The two are now published in a single volume, becoming "one in thine hand", marking the beginning of a gathering (verses 21 and 22).
+1. **What's in the name "OpenSticks"?**  Sticks is a reference to scrolls, as described in Ezekiel 37:16-20.  Members of the Church of Jesus Christ of latter-day Saints generally regard the "stick of Judah" to be the Bible and the "stick of Joseph" to be the Book of Mormon, having been written by descendants of Manasseh.  The two are now published in a single volume, becoming "one in thine hand", marking the beginning of a gathering (verses 21 and 22).
 
-2. **Why not "OpenScriptures"?**  There is already a project called OpenScriptures.
+2. **Why not "OpenScriptures"?**  There is already a github project called OpenScriptures.
 
-3. **What modifications are made to the database?**  The modified database adds <div>'s as described in pagelayout.pdf.  The database should still be readable by existing programs, such as Gospel Library, as they will simply ignore the extra column break div's.  The one place this will break down is when a verse is split across a column break.  In the original database, each verse is a paragraph.  It is necessary to end the paragraph in the middle of the verse at the end of a column, then start a new paragraph at the beginning of the next column.  Currently, the new paragraph does not have an id.  The annotation system may not know how to deal with this.  In OpenSticks, this new paragraph will probably need to be given an id before annotations can reliably be added.
+3. **What modifications are made to the database?**  The modified database adds <div>'s as described in `pagelayout.pdf <https://github.com/bradporter/OpenSticks/blob/master/pagelayout.pdf>`_.  The database should still be readable by existing programs, such as Gospel Library, as they will simply ignore the extra column break div's.  The one place this will break down is when a verse is split across a column break.  In the original database, each verse is a paragraph.  It is necessary to end the paragraph in the middle of the verse at the end of a column, then start a new paragraph at the beginning of the next column.  Currently, the new paragraph does not have an id.  The annotation system may not know how to deal with this.  In OpenSticks, this new paragraph will probably need to be given an id before annotations can reliably be added.
 
-4. **Why not modify the database and distribute the modified version?**  I don't know if this would be a copyright violation ... probably.  Hopefully, the Church will one day distribute a version with <div> tags marking column start and end.
+4. **Why not modify the database and distribute the modified version?**  I don't know if this would be a copyright violation ... probably.  Hopefully, the Church will one day distribute a version with <div> tags marking column start and end.  This would not need to be a special version.  Existing apps would simply ignore these <div> tags, or choose to make use of them.
+
+5. **Will this run on anything other than linux?** The file opensticks_gtkwebkit.py is a minimally modified version of  `pybrowser.py <https://gist.github.com/kklimonda/890640>`_ which calls readsticks.py.  It is intended to easily be replaced by any other gui program.  However, it should run as is on any system for which the python prerequisites can be installed.
 
 ..   don't need this   raw:: html
    <object data="pagelayout.pdf" type="application/pdf" width="700px" height="700px">
@@ -68,23 +70,26 @@ from zipfile import ZipFile
 
 import shlex 
 
-from zipfile import ZipFile 
-
 from bs4 import BeautifulSoup 
 
 import re  
 
+from unidecode import unidecode
 
-Tested on linux. 
+apt install python-gi-cairo
+apt install gir1.2-webkit-3.0
+ 
+
+Tested on linux (Debian 9). 
 
 Licensing:   
 ----------
 
 getdata.py:  See embedded text in file ...   
 
-convertbom.py:  CreativeCommons ...   
+convertbom.py:  MIT
 
-readsticks.py:  CreativeCommons ...   
+readsticks.py:  MIT   
 
 opensticks_gtkwebkit.py:  (Unknown.  See `pybrowser.py <https://gist.github.com/kklimonda/890640>`_.  This is not critical since this is the gui wrapper likely to be completely replaced if used on a platform other than linux.)   
 
