@@ -1,5 +1,5 @@
 This project is being updated based on comments at:  https://tech.churchofjesuschrist.org/forum/viewtopic.php?t=16391&start=10
-The tedious method convertbom.py below has been abandoned in favor of utilizing page breaks already existing in the html database.  Hopefully, an update will be forthcoming soon.
+The tedious method convertbom.py below has been abandoned in favor of utilizing page breaks already existing in the html database.  Hopefully, an update will be forthcoming soon.  Code has been written and is being debugged.
 
 OpenSticks
 ==========
